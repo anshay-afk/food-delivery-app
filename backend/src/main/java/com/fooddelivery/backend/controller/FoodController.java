@@ -1,64 +1,63 @@
 package com.fooddelivery.backend.controller;
 
 import com.fooddelivery.backend.model.Food;
-
 import com.fooddelivery.backend.repository.FoodRepository;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/foods")
 
 @CrossOrigin(
-origins=
-"http://localhost:5173"
+origins = "*"
 )
 
 public class FoodController {
 
-private final
-FoodRepository
-foodRepository;
+@Autowired
+private FoodRepository foodRepository;
 
-public FoodController(
-FoodRepository
-foodRepository
-){
+@GetMapping
+public List<Food> getFoods(){
 
-this.foodRepository=
-foodRepository;
+return foodRepository.findAll();
 
 }
 
-@GetMapping(
-"/api/foods"
-)
+@PostMapping("/seed")
+public String seedData(){
 
-public List<Food>
-getFoods(){
-
-return
-foodRepository.findAll();
-
-}
-
-@PostMapping(
-"/api/foods"
-)
-
-public Food
-addFood(
-
-@RequestBody
-Food food
-
-){
-
-return
 foodRepository.save(
-food
+new Food(
+null,
+"Burger",
+250.0,
+"Fast Food"
+)
 );
+
+foodRepository.save(
+new Food(
+null,
+"Pizza",
+450.0,
+"Italian"
+)
+);
+
+foodRepository.save(
+new Food(
+null,
+"Momos",
+120.0,
+"Snacks"
+)
+);
+
+return "Data Added";
 
 }
 
