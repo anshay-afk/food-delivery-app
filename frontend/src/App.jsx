@@ -8,9 +8,7 @@ const [cart,setCart]=useState([]);
 
 useEffect(()=>{
 
-fetch(
-"http://localhost:8080/api/foods"
-)
+fetch("https://graceful-wisdom-production.up.railway.app/api/foods")
 
 .then(
 res=>res.json()
