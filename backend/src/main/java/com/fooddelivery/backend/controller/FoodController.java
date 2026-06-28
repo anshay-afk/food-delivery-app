@@ -27,7 +27,7 @@ return foodRepository.findAll();
 
 }
 
-@PostMapping("/seed")
+@GetMapping("/seed")
 public String seedData(){
 
 foodRepository.save(
