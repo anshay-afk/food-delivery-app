@@ -63,7 +63,7 @@ null,
 "Momos",
 120.0,
 "Snacks",
-"https://images.pexels.com/photos/7363386/pexels-photo-7363386.jpeg"
+"https://images.pexels.com/photos/3926124/pexels-photo-3926124.jpeg"
 ));
 
 return "Reset Done";
