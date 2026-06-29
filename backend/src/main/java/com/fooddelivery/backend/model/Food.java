@@ -3,14 +3,10 @@ package com.fooddelivery.backend.model;
 import jakarta.persistence.*;
 
 @Entity
-
 public class Food {
 
 @Id
-@GeneratedValue(
-strategy =
-GenerationType.IDENTITY
-)
+@GeneratedValue(strategy = GenerationType.IDENTITY)
 
 private Long id;
 
@@ -20,13 +16,18 @@ private Double price;
 
 private String category;
 
-public Food(){}
+private String imageUrl;
+
+public Food(){
+
+}
 
 public Food(
 Long id,
 String name,
 Double price,
-String category
+String category,
+String imageUrl
 ){
 
 this.id=id;
@@ -36,6 +37,8 @@ this.name=name;
 this.price=price;
 
 this.category=category;
+
+this.imageUrl=imageUrl;
 
 }
 
@@ -53,6 +56,10 @@ return price;
 
 public String getCategory(){
 return category;
+}
+
+public String getImageUrl(){
+return imageUrl;
 }
 
 }
