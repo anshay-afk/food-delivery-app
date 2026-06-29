@@ -4,190 +4,103 @@ function App() {
 
 const [foods,setFoods]=useState([]);
 
-const [cart,setCart]=useState([]);
-
 useEffect(()=>{
 
-fetch("https://graceful-wisdom-production.up.railway.app/api/foods")
-
-.then(
-res=>res.json()
+fetch(
+"https://graceful-wisdom-production.up.railway.app/api/foods"
 )
 
 .then(
-data=>
-setFoods(data)
+(res)=>res.json()
+)
+
+.then(
+(data)=>setFoods(data)
+)
+
+.catch(
+(err)=>console.log(err)
 );
 
 },[]);
 
-function addToCart(food){
-
-setCart([
-
-...cart,
-
-food
-
-]);
-
-}
-
-function placeOrder(){
-
-if(
-cart.length===0
-){
-
-alert(
-"Cart is empty"
-);
-
-return;
-
-}
-
-alert(
-"Order Placed ✅");
-
-setCart([]);
-
-}
-
-const total=
-
-cart.reduce(
-
-(sum,item)=>
-
-sum+
-item.price,
-
-0
-
-);
-
-return(
+return (
 
 <div
-
 style={{
-
-padding:"30px",
-
-maxWidth:"700px",
-
-margin:"auto",
-
-fontFamily:
-"Arial"
-
+padding:"30px"
 }}
-
 >
 
 <h1>
-
-🍔 Food Delivery App
-
+Food Delivery App 🍔
 </h1>
 
-<h2>
-
-Cart:
-{cart.length}
-
-</h2>
-
-<h2>
-
-Total:
-₹{total}
-
-</h2>
-
-<button
-
-onClick=
-{placeOrder}
-
+<div
 style={{
-
-padding:"10px",
-
-marginBottom:
-"20px"
-
+display:"flex",
+flexWrap:"wrap",
+gap:"20px"
 }}
-
 >
-
-Place Order
-
-</button>
-
-<hr/>
 
 {
 
-foods.map(
-
-food=>(
+foods.map((food)=>(
 
 <div
 
-key=
-{food.id}
+key={food.id}
 
 style={{
 
-padding:"20px",
+width:"320px",
 
-marginBottom:
-"15px",
+padding:"15px",
 
-borderRadius:
-"12px",
+border:"1px solid #ddd",
 
-boxShadow:
+borderRadius:"15px",
 
-"0 0 10px rgba(0,0,0,0.1)"
+boxShadow:"0 2px 10px rgba(0,0,0,0.1)"
 
 }}
 
 >
 
+<img
+
+src={food.imageUrl}
+
+alt={food.name}
+
+style={{
+
+width:"100%",
+
+height:"220px",
+
+objectFit:"cover",
+
+borderRadius:"10px"
+
+}}
+
+/>
+
 <h2>
-
 {food.name}
-
 </h2>
 
 <p>
-
-Category:
-{food.category}
-
+Category: {food.category}
 </p>
 
-<p>
+<h3>
+₹{food.price}
+</h3>
 
-₹
-{food.price}
-
-</p>
-
-<button
-
-onClick={()=>
-
-addToCart(
-food
-)
-
-}
-
->
+<button>
 
 Add To Cart
 
@@ -195,11 +108,11 @@ Add To Cart
 
 </div>
 
-)
-
-)
+))
 
 }
+
+</div>
 
 </div>
 
