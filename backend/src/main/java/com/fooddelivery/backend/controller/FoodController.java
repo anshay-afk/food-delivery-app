@@ -63,7 +63,7 @@ null,
 "Momos",
 120.0,
 "Snacks",
-"https://www.vecteezy.com/free-photos/momos"
+"https://upload.wikimedia.org/wikipedia/commons/a/a1/Momo_nepal.jpg"
 ));
 
 return "Reset Done";
