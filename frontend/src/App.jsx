@@ -1,16 +1,19 @@
 import { useEffect, useState } from "react";
 
-function App() {
+function App(){
 
 const [foods,setFoods]=useState([]);
 const [cart,setCart]=useState([]);
+const [ordered,setOrdered]=useState(false);
 
 useEffect(()=>{
 
 fetch(
 "https://graceful-wisdom-production.up.railway.app/api/foods"
 )
+
 .then(res=>res.json())
+
 .then(data=>setFoods(data));
 
 },[]);
@@ -19,16 +22,35 @@ function addToCart(food){
 
 setCart([...cart,food]);
 
+setOrdered(false);
+
+}
+
+function placeOrder(){
+
+if(cart.length===0){
+
+return;
+
+}
+
+alert("Order placed successfully 🎉");
+
+setCart([]);
+
+setOrdered(true);
+
 }
 
 const total=
+
 cart.reduce(
 (sum,item)=>
 sum+item.price,
 0
 );
 
-return (
+return(
 
 <div style={{padding:"30px"}}>
 
@@ -49,10 +71,15 @@ Total: ₹{total}
 cart.length>0&&(
 
 <button
+
+onClick={placeOrder}
+
 style={{
 padding:"12px",
-fontSize:"18px"
+fontSize:"18px",
+cursor:"pointer"
 }}
+
 >
 
 Place Order
@@ -63,10 +90,25 @@ Place Order
 
 }
 
+{
+
+ordered&&(
+
+<h2>
+
+Order Completed ✅
+
+</h2>
+
+)
+
+}
+
 <br/>
 <br/>
 
 <div
+
 style={{
 
 display:"flex",
@@ -76,6 +118,7 @@ flexWrap:"wrap",
 gap:"20px"
 
 }}
+
 >
 
 {
@@ -90,9 +133,9 @@ style={{
 
 width:"320px",
 
-border:"1px solid lightgray",
-
 padding:"15px",
+
+border:"1px solid lightgray",
 
 borderRadius:"15px"
 
