@@ -3,44 +3,78 @@ import { useEffect, useState } from "react";
 function App() {
 
 const [foods,setFoods]=useState([]);
+const [cart,setCart]=useState([]);
 
 useEffect(()=>{
 
 fetch(
 "https://graceful-wisdom-production.up.railway.app/api/foods"
 )
-
-.then(
-(res)=>res.json()
-)
-
-.then(
-(data)=>setFoods(data)
-)
-
-.catch(
-(err)=>console.log(err)
-);
+.then(res=>res.json())
+.then(data=>setFoods(data));
 
 },[]);
 
+function addToCart(food){
+
+setCart([...cart,food]);
+
+}
+
+const total=
+cart.reduce(
+(sum,item)=>
+sum+item.price,
+0
+);
+
 return (
 
-<div
-style={{
-padding:"30px"
-}}
->
+<div style={{padding:"30px"}}>
 
 <h1>
 Food Delivery App 🍔
 </h1>
 
+<h2>
+Cart: {cart.length}
+</h2>
+
+<h2>
+Total: ₹{total}
+</h2>
+
+{
+
+cart.length>0&&(
+
+<button
+style={{
+padding:"12px",
+fontSize:"18px"
+}}
+>
+
+Place Order
+
+</button>
+
+)
+
+}
+
+<br/>
+<br/>
+
 <div
 style={{
+
 display:"flex",
+
 flexWrap:"wrap",
+
 gap:"20px"
+
 }}
 >
 
@@ -56,13 +90,11 @@ style={{
 
 width:"320px",
 
+border:"1px solid lightgray",
+
 padding:"15px",
 
-border:"1px solid #ddd",
-
-borderRadius:"15px",
-
-boxShadow:"0 2px 10px rgba(0,0,0,0.1)"
+borderRadius:"15px"
 
 }}
 
@@ -70,7 +102,10 @@ boxShadow:"0 2px 10px rgba(0,0,0,0.1)"
 
 <img
 
-src={food.imageUrl}
+src={
+food.imageUrl||
+"https://placehold.co/400x250"
+}
 
 alt={food.name}
 
@@ -93,14 +128,21 @@ borderRadius:"10px"
 </h2>
 
 <p>
-Category: {food.category}
+Category:
+{food.category}
 </p>
 
 <h3>
 ₹{food.price}
 </h3>
 
-<button>
+<button
+
+onClick={
+()=>addToCart(food)
+}
+
+>
 
 Add To Cart
 
