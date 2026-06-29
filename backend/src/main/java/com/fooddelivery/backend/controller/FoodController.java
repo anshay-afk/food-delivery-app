@@ -30,6 +30,15 @@ return foodRepository.findAll();
 @GetMapping("/seed")
 public String seedData(){
 
+return "Seeding disabled";
+
+}
+
+@GetMapping("/reset")
+public String resetFoods(){
+
+foodRepository.deleteAll();
+
 foodRepository.save(
 new Food(
 null,
@@ -57,8 +66,7 @@ null,
 )
 );
 
-return "Data Added";
+return "Reset Done";
 
 }
-
 }
