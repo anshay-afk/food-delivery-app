@@ -37,36 +37,8 @@ return "Seeding disabled";
 @GetMapping("/reset")
 public String resetFoods(){
 
-foodRepository.deleteAll();
-
-foodRepository.save(
-new Food(
-null,
-"Burger",
-250.0,
-"Fast Food"
-)
-);
-
-foodRepository.save(
-new Food(
-null,
-"Pizza",
-450.0,
-"Italian"
-)
-);
-
-foodRepository.save(
-new Food(
-null,
-"Momos",
-120.0,
-"Snacks"
-)
-);
-
-return "Reset Done";
+return "Disabled";
 
 }
+
 }
